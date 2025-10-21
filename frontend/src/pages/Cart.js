@@ -17,7 +17,7 @@ export default function Cart() {
             return;
         }
 
-        axios.post("http://localhost:5000/mpesa/stkpush", {
+        axios.post("https://innovexecommercebackend.vercel.app/mpesa/stkpush", {
             phone,
             amount,
         })
@@ -81,6 +81,7 @@ export default function Cart() {
                                 placeholder="Enter phone number (e.g 254712345678)"
                                 className="form-control"
                             />
+                            <p>NOTE: The money will not be reversed</p>
                             <button
                                 type="submit"
                                 className="btn btn-success w-100 mt-2"

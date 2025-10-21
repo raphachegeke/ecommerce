@@ -19,7 +19,7 @@ export default function Dashboard() {
   }, []);
 
   const loadProducts = () => {
-    axios.get("http://localhost:5000/simple-ecom/products")
+    axios.get("https://innovexecommercebackend.vercel.app/simple-ecom/products")
       .then(res => setProducts(res.data))
       .catch(err => console.log(err));
   };
@@ -27,7 +27,7 @@ export default function Dashboard() {
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const addProduct = () => {
-    axios.post("http://localhost:5000/simple-ecom/products", form)
+    axios.post("https://innovexecommercebackend.vercel.app/simple-ecom/products", form)
       .then(() => {
         alert("✅ Product added!");
         loadProducts();
@@ -35,7 +35,7 @@ export default function Dashboard() {
   };
 
   const deleteProduct = (id) => {
-    axios.delete(`http://localhost:5000/simple-ecom/products/${id}`)
+    axios.delete(`https://innovexecommercebackend.vercel.app/simple-ecom/products/${id}`)
       .then(() => {
         alert("🗑 Product deleted!");
         loadProducts();

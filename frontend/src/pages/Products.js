@@ -7,13 +7,13 @@ export default function Products() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    axios.get("http://localhost:5000/simple-ecom/products")
+    axios.get("https://innovexecommercebackend.vercel.app/simple-ecom/products")
       .then(res => setProducts(res.data))
       .catch(err => console.log(err));
   }, []);
 
   const payWithMpesa = (price) => {
-    axios.post("http://localhost:5000/mpesa/stkpush", {
+    axios.post("https://innovexecommercebackend.vercel.app/mpesa/stkpush", {
       phone: "254748397839",
       amount: price,
     })

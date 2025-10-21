@@ -14,7 +14,7 @@ app.use(bodyParser.json());     // Middleware to parse incoming JSON data from r
 
 // Connect to MongoDB using Mongoose
 // (Make sure MongoDB is running locally or use MongoDB Atlas)
-mongoose.connect("mongodb+srv://raphachegekamunu:41831655@cluster0.ddv4ceq.mongodb.net/crudDatabase?retryWrites=true&w=majority&appName=Cluster0", {
+mongoose.connect("mongodb+srv://raphachegekamunu:41831655@cluster0.ddv4ceq.mongodb.net/SimpleEcommerce?retryWrites=true&w=majority&appName=Cluster0", {
   useNewUrlParser: true,          // Use the new MongoDB URI parser
   useUnifiedTopology: true,      // Use the new connection management engine
 })
