@@ -78,7 +78,7 @@ export default function Cart() {
                                 id="phone"
                                 value={phone}
                                 onChange={handlePhoneChange}
-                                placeholder="Enter phone number"
+                                placeholder="Enter phone number (e.g 254712345678)"
                                 className="form-control"
                             />
                             <button
