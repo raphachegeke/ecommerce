@@ -1,51 +1,37 @@
-// server.js
-// ----------------------------
-// Basic Node + Express server
-// ----------------------------
-
 // Import required libraries
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors"); // allows frontend (React) to talk to backend
-const bodyParser = require("body-parser");
+const express = require("express");   // Express for building the server and handling routes
+const mongoose = require("mongoose"); // Mongoose for MongoDB object modeling
+const cors = require("cors");         // CORS middleware for enabling cross-origin requests
+const bodyParser = require("body-parser"); // Middleware for parsing incoming request bodies (JSON)
 
+// Create an instance of the Express application
 const app = express();
 
-// ----------------------------
-// MIDDLEWARE SETUP
-// ----------------------------
-app.use(cors());                 // allow requests from React
-app.use(bodyParser.json());      // parse incoming JSON data
+// Middlewares
 
-// ----------------------------
-// CONNECT TO MONGODB
-// ----------------------------
+app.use(cors());                // Enable Cross-Origin Resource Sharing (CORS) to allow React app to make requests to the backend
+app.use(bodyParser.json());     // Middleware to parse incoming JSON data from requests
+
+// Connect to MongoDB using Mongoose
 // (Make sure MongoDB is running locally or use MongoDB Atlas)
 mongoose.connect("mongodb+srv://raphachegekamunu:41831655@cluster0.ddv4ceq.mongodb.net/crudDatabase?retryWrites=true&w=majority&appName=Cluster0", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useNewUrlParser: true,          // Use the new MongoDB URI parser
+  useUnifiedTopology: true,      // Use the new connection management engine
 })
-.then(() => console.log("✅ Connected to MongoDB"))
-.catch(err => console.log("❌ MongoDB connection error:", err));
+.then(() => console.log("✅ Connected to MongoDB")) // Log a success message if connection is successful
+.catch(err => console.log("❌ Error connecting to MongoDB:", err)); // Log error if MongoDB connection fails
 
-// ----------------------------
-// ROUTES
-// ----------------------------
-// Import routes for auth and products
-const authRoutes = require("./routes/auth");
-const productRoutes = require("./routes/products");
+// Importing route handlers for authentication, products, and MPESA
+const authRoutes = require("./routes/auth");         // Auth-related routes (login, registration, etc.)
+const productRoutes = require("./routes/products"); // Product-related routes (CRUD operations for products)
 
-app.use("/simple-ecom/auth", authRoutes); // use the auth routes
-app.use("/simple-ecom/products", productRoutes);
+// Using routes
+app.use("/simple-ecom/auth", authRoutes);   // All routes starting with '/simple-ecom/auth' will be handled by the authRoutes
+app.use("/simple-ecom/products", productRoutes); // All routes starting with '/simple-ecom/products' will be handled by the productRoutes
 
+// The mpesa route for handling payment processing
+const mpesaRoutes = require("./routes/mpesa"); // MPESA routes (for handling mobile payments)
+app.use("/mpesa", mpesaRoutes);  // All routes starting with '/mpesa' will be handled by the mpesaRoutes
 
-// The mpesa route
-const mpesaRoutes = require("./routes/mpesa_stk");
-app.use("/mpesa", mpesaRoutes);
-
-
-// ----------------------------
-// START SERVER
-// ----------------------------
-const PORT = 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+// Starting the server and listening on port 5000
+app.listen(5000, () => console.log(`🚀 Server running on port 5000`)); // Log a message when the server is up and running

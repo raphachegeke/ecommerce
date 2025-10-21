@@ -14,11 +14,18 @@ export default function Products() {
 
   const payWithMpesa = (price) => {
     axios.post("http://localhost:5000/mpesa/stkpush", {
-      phone: "254720245837",
+      phone: "254748397839",
       amount: price,
     })
     .then(() => alert("📲 STK Push sent! Check your phone."))
     .catch(() => alert("❌ Error sending STK push"));
+  };
+
+  const addToCart = (product) => {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`🛒 Added ${product.name} to cart!`);
   };
 
   return (
@@ -32,12 +39,24 @@ export default function Products() {
                 <h5>{p.name}</h5>
                 <p>{p.description}</p>
                 <h6>KES {p.price}</h6>
-                <button
-                  onClick={() => payWithMpesa(p.price)}
-                  className="btn btn-success w-100"
-                >
-                  💰 Pay with M-Pesa
-                </button>
+
+                {user && user.username === "Rkamunu" ? (
+                  <button
+                    onClick={() => payWithMpesa(p.price)}
+                    className="btn btn-success w-100"
+                  >
+                    💰 Pay with M-Pesa
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => addToCart(p)}
+                      className="btn btn-outline-primary w-100 mb-2"
+                    >
+                      ➕ Add to Cart
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
