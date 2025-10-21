@@ -22,16 +22,19 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
         const products = await Product.find();
-        res.status(200).json(products);
 
         // If no products found/exists
         if (products.length === 0) {
             return res.status(404).json("No products found");
         }
+
+        // Send the products if they exist
+        res.status(200).json(products);
     } catch (err) {
         res.status(500).json(err);
     }
 });
+
 
 // Read/get one product by its ID
 router.get("/:id", async (req, res) => {
