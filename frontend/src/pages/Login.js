@@ -1,4 +1,3 @@
-// src/pages/Login.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -23,19 +22,44 @@ export default function Login() {
   };
 
   return (
-    <div className="col-md-4 mx-auto">
-      <h3>Login</h3>
-      <form onSubmit={handleLogin}>
-        <div className="mb-3">
-          <label>Username</label>
-          <input name="username" className="form-control" onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <label>Password</label>
-          <input type="password" name="password" className="form-control" onChange={handleChange} required />
-        </div>
-        <button className="btn btn-primary w-100">Login</button>
-      </form>
+    <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh", backgroundColor: "#f4f6f9" }}>
+      <div className="col-md-4 p-4 border rounded shadow-lg" style={{ backgroundColor: "#ffffff" }}>
+        <h3 className="text-center text-primary mb-4">Login</h3>
+        <form onSubmit={handleLogin}>
+          <div className="mb-3">
+            <label htmlFor="username" className="form-label">Username</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              className="form-control p-3 rounded-3"
+              onChange={handleChange}
+              required
+              placeholder="Enter your username"
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              className="form-control p-3 rounded-3"
+              onChange={handleChange}
+              required
+              placeholder="Enter your password"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary w-100 py-3 rounded-pill mt-3"
+          >
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
