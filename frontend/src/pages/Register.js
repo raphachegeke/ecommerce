@@ -1,49 +1,70 @@
-// Importing React and necessary hooks for managing state and navigation
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Defining the Register component as a functional component
 export default function Register() {
-  // useState hook for managing the form data (username and password)
   const [form, setForm] = useState({ username: "", password: "" });
-  
-  // useNavigate hook to programmatically navigate to different pages (used after successful registration)
+  const [isLoading, setIsLoading] = useState(false);  // State for loading spinner
   const navigate = useNavigate();
 
-  // handleChange function updates the form state whenever a user types in the input fields
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  // handleRegister function is called when the form is submitted
   const handleRegister = (e) => {
-    e.preventDefault(); // Preventing the default form submit behavior (page reload)
-    alert("✅ Registration successful! Please login."); // Displaying a success message
-    navigate("/login"); // Navigating to the login page after successful registration
+    e.preventDefault();
+    setIsLoading(true);  // Start loading when form is submitted
+
+    // Simulate registration process
+    setTimeout(() => {
+      alert("✅ Registration successful! Please login.");
+      navigate("/login");
+    }, 1500);  // Simulate async registration process with timeout
   };
 
-  // JSX for the registration form
   return (
-    <div className="col-md-4 mx-auto"> {/* Centering the form inside a div */}
-      <h3>Register</h3> {/* Title of the registration page */}
+    <div className="col-md-6 col-lg-4 mx-auto my-5 p-4 border rounded shadow-lg" style={{ backgroundColor: "#f8f9fa" }}>
+      <h3 className="text-center text-primary mb-4">Register</h3>
       
-      {/* Form element that will call handleRegister function when submitted */}
       <form onSubmit={handleRegister}>
-        
         {/* Username input field */}
         <div className="mb-3">
-          <label>Username</label> {/* Label for the username input */}
-          {/* Input field for the username, onChange calls handleChange to update the form state */}
-          <input name="username" className="form-control" onChange={handleChange} required />
+          <label htmlFor="username" className="form-label text-secondary">Username</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            className="form-control border-2 rounded-3 p-3"
+            onChange={handleChange}
+            required
+            placeholder="Enter your username"
+          />
         </div>
 
         {/* Password input field */}
         <div className="mb-3">
-          <label>Password</label> {/* Label for the password input */}
-          {/* Input field for the password, type set to password to mask the input */}
-          <input type="password" name="password" className="form-control" onChange={handleChange} required />
+          <label htmlFor="password" className="form-label text-secondary">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            className="form-control border-2 rounded-3 p-3"
+            onChange={handleChange}
+            required
+            placeholder="Enter your password"
+          />
         </div>
 
-        {/* Submit button to trigger form submission */}
-        <button className="btn btn-success w-100">Register</button>
+        {/* Submit button with dynamic text */}
+        <button
+          type="submit"
+          className="btn btn-primary w-100 py-3 rounded-pill"
+          disabled={isLoading}  // Disable button when loading
+        >
+          {isLoading ? (
+            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          ) : (
+            "Register"
+          )}
+        </button>
       </form>
     </div>
   );
