@@ -48,7 +48,7 @@ export default function Login() {
               className="form-control p-3 rounded-3"
               onChange={handleChange}
               required
-              placeholder="Enter your password"
+              placeholder="Enter password to continue"
             />
           </div>
 
